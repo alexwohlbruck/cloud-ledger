@@ -1,47 +1,66 @@
 <template lang="pug">
   div
-    md-dialog-prompt(:md-active.sync='newAccountDialog', v-model='newAccount', md-title='Create new account', md-input-placeholder='Account name', md-confirm-text='Create')
+    //- md-dialog-prompt(:md-active.sync='newAccountDialog', v-model='newAccount', md-title='Create new account', md-input-placeholder='Account name', md-confirm-text='Create')
 
-    .add.md-layout
+    .add.md-layout.md-alignment-top-space-between
       .md-layout-item.md-size-50.padding
-        md-field
-          label(for='account') Account
-          md-select#account(v-model='account', name='account', @md-selected='accountSelected')
-            md-option(value='1') 1
-            md-option(value='new') New account
-          
-        md-field
-          label Value
-          md-input(v-model='input')
-          
+        form(@submit='postAdd')
+          md-field
+            label(for='account') Account
+            md-select#account(v-model='add.account', name='account')
+              md-option(value='1') Account 1
+              md-option(value='2') Account 2
+              //- md-option(value='new') New account
+            
+          //- md-field
+          //-   label Value
+          //-   md-input(v-model='input')
 
-        p {{account}}
+          md-field
+            label Comment
+            md-input(v-model='add.comment')
 
       .md-layout-item.md-size-50
         md-list
-          NestedItem
-            NestedItem
+          md-list-item(v-for='add in adds')
+            span.md-list-item-text {{add.comment}}
 </template>
 
 <script>
   import NestedItem from '../components/NestedItem'
+  import axios from 'axios'
 
   export default {
     name: 'add',
     data: () => ({
-      newAccount: null,
-      newAccountDialog: false,
+      add: {
+        account: null,
+        comment: null,
+      },
+      adds: [{
+        comment: 'hello'
+      },{
+        comment: 'world'
+      }],
+      // newAccount: null,
+      // newAccountDialog: false,
       input: 'test'
     }),
     components: {
       NestedItem
     },
     methods: {
-      accountSelected() {
-        alert(this.newAccount)
-        if (this.newAccount == 'new')
-          this.newAccountDialog = true
+
+      postAdd() {
+        axios('152.23.136.143:8080/add', {method: 'POST', data: this.add}).then(res => {
+          adds.push(res.data)
+        })
       }
+      // accountSelected() {
+      //   alert(this.newAccount)
+      //   if (this.newAccount == 'new')
+      //     this.newAccountDialog = true
+      // }
     }
   }
 </script>
