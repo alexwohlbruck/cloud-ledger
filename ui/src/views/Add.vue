@@ -4,7 +4,7 @@
 
     .add.md-layout.md-alignment-top-space-between
       .md-layout-item.md-size-50.padding
-        form(@submit='postAdd')
+        form(@submit.prevent='postAdd')
           md-field
             label(for='account') Account
             md-select#account(v-model='add.account', name='account')
@@ -20,6 +20,8 @@
             label Comment
             md-input(v-model='add.comment')
 
+          md-button(type='submit') Add
+
       .md-layout-item.md-size-50
         md-list
           md-list-item(v-for='add in adds')
@@ -29,6 +31,8 @@
 <script>
   import NestedItem from '../components/NestedItem'
   import axios from 'axios'
+
+  const host = 'http://18.223.199.196:8000'
 
   export default {
     name: 'add',
@@ -49,10 +53,15 @@
     components: {
       NestedItem
     },
+    mounted() {
+      axios(`${host}/add`, {method: 'GET'}).then(res => {
+        this.adds = res.data
+      })
+    },
     methods: {
 
       postAdd() {
-        axios('152.23.136.143:8080/add', {method: 'POST', data: this.add}).then(res => {
+        axios(`${host}/add`, {method: 'POST', data: this.add}).then(res => {
           adds.push(res.data)
         })
       }
