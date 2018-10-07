@@ -1,4 +1,4 @@
-#!/home/andrew/code/cloud-ledger/venv/bin/python2
+#!/home/andrew/code/cloud-ledger/venv/bin/python3
 from django.core import management
 
 if __name__ == "__main__":
