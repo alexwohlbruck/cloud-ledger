@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f0858451a31b11b652310532811a332e.js"
+  "/precache-manifest.bfaf92bd08827e6b486f922dce881960.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "cloud-ledger"});

@@ -32,7 +32,7 @@
   import NestedItem from '../components/NestedItem'
   import axios from 'axios'
 
-  const host = 'http://18.223.199.196:8000'
+  const host = 'https://dincyl6edgih8.cloudfront.net'
 
   export default {
     name: 'add',
